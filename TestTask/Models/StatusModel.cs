@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Staff.Models
+namespace TestTask.Models
 {
     //Модель статуса
     public partial class StatusModel

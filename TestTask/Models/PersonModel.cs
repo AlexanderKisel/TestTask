@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Staff.Models
+namespace TestTask.Models
 {
     public partial class PersonModel
     {
