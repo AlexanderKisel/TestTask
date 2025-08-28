@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -15,11 +17,10 @@ namespace TestTask
         public MainForm()
         {
             InitializeComponent();
-            
+
             //Событие для выделения уволенного сотрудника
             personDgv.CellFormatting += PersonDgv_CellFormatting;
 
-            personDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             personDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             dt.Columns.Add("ФИО");
@@ -29,13 +30,14 @@ namespace TestTask
             dt.Columns.Add("Дата приема");
             dt.Columns.Add("Дата увольнения");
 
+
             UpdateDgvPerson();
-            LoadFilterData();
+            LoadComboBox();
         }
 
         private void PersonDgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            //Для выделения ячеки в столбце ФИО ставлю условие, на этот столбец
+            //Для выделения ячейки в столбце ФИО ставлю условие, на этот столбец
             if (e.ColumnIndex == 0)
             {
                 //Получаю значение статуса
@@ -43,7 +45,7 @@ namespace TestTask
 
                 //Если статус сотрудника "Уволен" выделяю ячейку с ФИО красным цветом
                 //При этом полученное значение ячейки перевожу в нижний регистр, в случае если значение в таблице содержится в другом регистре, как у меня
-                if (statusValue.ToLower().Contains("уволен"))
+                if (statusValue.ToLower() == "уволен")
                 {
                     e.CellStyle.BackColor = Color.IndianRed;
                 }
@@ -101,7 +103,7 @@ namespace TestTask
             statusCmbBox.SelectedIndex = -1;
             depCmbBox.SelectedIndex = -1;
             postCmbBox.SelectedIndex = -1;
-            
+
             //Очищаю строку для фильтрации
             dt.DefaultView.RowFilter = "";
 
@@ -109,17 +111,24 @@ namespace TestTask
             UpdateDgvPerson();
         }
 
-        private void LoadFilterData()
+        private void LoadComboBox()
         {
             using (TestTaskContext db = new TestTaskContext())
             {
+                //Загружаю статусы в ComboBox для вывода статистики
+                var statusesForStat = db.Statuses
+                    .Select(s => s.Name)
+                    .Distinct()
+                    .ToList();
+
+                statusCmbBoxForStat.Items.AddRange(statusesForStat.ToArray());
+
                 //Загружаю статусы в ComboBox
                 var statuses = db.Statuses
                     .Select(s => s.Name)
                     .Distinct()
                     .ToList();
 
-                statusCmbBox.Items.Clear();
                 statusCmbBox.Items.AddRange(statuses.ToArray());
 
                 //Загружаю отделы в ComboBox
@@ -128,21 +137,19 @@ namespace TestTask
                     .Distinct()
                     .ToList();
 
-                depCmbBox.Items.Clear();
                 depCmbBox.Items.AddRange(departments.ToArray());
 
-                //Загружаю статусы в должности
+                //Загружаю статусы в ComboBox
                 var positions = db.Posts
                     .Select(p => p.Name)
                     .Distinct()
                     .ToList();
 
-                postCmbBox.Items.Clear();
                 postCmbBox.Items.AddRange(positions.ToArray());
             }
         }
 
-        //Обновляю(загружаю данные в DataGridView
+        //Обновляю(загружаю данные в DataGridView)
         private void UpdateDgvPerson()
         {
             using (TestTaskContext db = new TestTaskContext())
@@ -179,7 +186,7 @@ namespace TestTask
             {
                 personDgv.Sort(personDgv.Columns[0], ListSortDirection.Ascending);
             }
-            else 
+            else
             //Сортировка в обратном порядке по алфавиту
             if (sortDown.Checked)
             {
@@ -187,12 +194,79 @@ namespace TestTask
             }
         }
 
-        //Сбрасываю сортирвоку и привожу DataGridView в первоначальный вид
+        //Сбрасываю сортировку и привожу DataGridView в первоначальный вид
         private void dropSortBtn_Click(object sender, System.EventArgs e)
         {
             sortDown.Checked = false;
             sortUp.Checked = false;
             UpdateDgvPerson();
+        }
+
+        //Вывод статистики
+        private void statBtn_Click(object sender, System.EventArgs e)
+        {
+            //Получаем все данные, которые ввел пользователь
+            DateTime startPeriod = startDateTimePicker.Value.Date;
+            DateTime endPeriod = endDateTimePicker.Value.Date;
+            string status = statusCmbBoxForStat.Text;
+            int counterDismissed = 0; //Счетчик уволеных людей
+            int counterAll = 0; //Счетчик принятых людей
+
+            if (startPeriod > endPeriod)
+            {
+                //Защита на случай неправильного ввода даты
+                MessageBox.Show("Дата начала периода не может быть позже конца периода", "Ошибка ввода данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+                
+            foreach (DataGridViewRow row in personDgv.Rows)
+                {
+                    //Просмотр столбцов с датой увольнения
+                    if (row.Cells[5].Value != null && DateTime.TryParse(row.Cells[5].Value.ToString(), out DateTime rowDateDismissed))
+                    {
+                        //Проверка подходит ли дата увольнения в указанный период
+                        bool dateDismissed = rowDateDismissed.Date >= startPeriod && rowDateDismissed.Date <= endPeriod;
+                        //Проверка подходит ли статус работника
+                        bool statusPerson = row.Cells[1]?.Value?.ToString().ToLower() == "уволен";
+                        if (dateDismissed && statusPerson)
+                        {
+                            counterDismissed++;
+                            counterAll++;
+                        }
+                    }
+                    //Просмотр столбцов с датой приема на работу
+                    else if (row.Cells[4].Value != null && DateTime.TryParse(row.Cells[4].Value.ToString(), out DateTime rowDateWorker))
+                    {
+                        //Проверка подходит ли дата приема на работу в указанный период
+                        bool dateWorker = rowDateWorker.Date >= startPeriod && rowDateWorker.Date <= endPeriod;
+                        if (dateWorker)
+                        {
+                            counterAll++;
+                        }
+                    }
+                }
+            if (status.ToLower() == "уволен")
+            {
+                //Вывод статистики в случае, если выбран статус "Уволен"
+                statisticsOutputLbl.Text = $"За период: {startPeriod:dd.MM.yyyy} - {endPeriod:dd.MM.yyyy} было уволено {counterDismissed} человек(-а).";
+
+            }
+            else if (status.ToLower() != "уволен")
+            {
+                //Вывод статистики в случае, если выбран статус "Работает", но в этот период все подходящие работники были уволены
+                if (counterAll-counterDismissed < 0)
+                {
+                    statisticsOutputLbl.Text = $"За период: {startPeriod:dd.MM.yyyy} - {endPeriod:dd.MM.yyyy} на работу было принято  {counterAll} человек(-а). Из них работает 0 человек.";
+                }
+                //Вывод статистики в случае, если выбран статус "Работает", но в этот период не все подходящие работники были уволены
+                else
+                    statisticsOutputLbl.Text = $"За период: {startPeriod:dd.MM.yyyy} - {endPeriod:dd.MM.yyyy} на работу было принято  {counterAll} человек(-а). Из них работает {counterAll - counterDismissed} человек.";
+            }
+            //Сообщение в случае, если статус не был выбран
+            else
+            {
+                MessageBox.Show("Вы не выбрали статус", "Ошибка ввода данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

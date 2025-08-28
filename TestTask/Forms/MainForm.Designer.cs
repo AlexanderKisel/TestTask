@@ -41,15 +41,28 @@
             this.depCmbBox = new System.Windows.Forms.ComboBox();
             this.statusCmbBox = new System.Windows.Forms.ComboBox();
             this.sortGB = new System.Windows.Forms.GroupBox();
-            this.sortUp = new System.Windows.Forms.RadioButton();
-            this.sortDown = new System.Windows.Forms.RadioButton();
-            this.sortBtn = new System.Windows.Forms.Button();
             this.dropSortBtn = new System.Windows.Forms.Button();
+            this.sortBtn = new System.Windows.Forms.Button();
+            this.sortDown = new System.Windows.Forms.RadioButton();
+            this.sortUp = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dismissedLbl = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.statusCmbBoxForStat = new System.Windows.Forms.ComboBox();
+            this.startDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.statusLblForStat = new System.Windows.Forms.Label();
+            this.startPeriodLbl = new System.Windows.Forms.Label();
+            this.endPeriodLbl = new System.Windows.Forms.Label();
+            this.statBtn = new System.Windows.Forms.Button();
+            this.sropStatBtn = new System.Windows.Forms.Button();
+            this.statOutputGroupBox = new System.Windows.Forms.GroupBox();
+            this.statisticsOutputLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.personDgv)).BeginInit();
             this.filterGB.SuspendLayout();
             this.sortGB.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.statOutputGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // personDgv
@@ -149,6 +162,7 @@
             // 
             // postCmbBox
             // 
+            this.postCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.postCmbBox.FormattingEnabled = true;
             this.postCmbBox.Location = new System.Drawing.Point(101, 74);
             this.postCmbBox.Name = "postCmbBox";
@@ -157,6 +171,7 @@
             // 
             // depCmbBox
             // 
+            this.depCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.depCmbBox.FormattingEnabled = true;
             this.depCmbBox.Location = new System.Drawing.Point(101, 47);
             this.depCmbBox.Name = "depCmbBox";
@@ -165,6 +180,7 @@
             // 
             // statusCmbBox
             // 
+            this.statusCmbBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.statusCmbBox.FormattingEnabled = true;
             this.statusCmbBox.Location = new System.Drawing.Point(101, 20);
             this.statusCmbBox.Name = "statusCmbBox";
@@ -184,27 +200,16 @@
             this.sortGB.TabStop = false;
             this.sortGB.Text = "Сортировка";
             // 
-            // sortUp
+            // dropSortBtn
             // 
-            this.sortUp.AutoSize = true;
-            this.sortUp.Location = new System.Drawing.Point(7, 20);
-            this.sortUp.Name = "sortUp";
-            this.sortUp.Size = new System.Drawing.Size(125, 17);
-            this.sortUp.TabIndex = 0;
-            this.sortUp.TabStop = true;
-            this.sortUp.Text = "Сортировать от А-Я";
-            this.sortUp.UseVisualStyleBackColor = true;
-            // 
-            // sortDown
-            // 
-            this.sortDown.AutoSize = true;
-            this.sortDown.Location = new System.Drawing.Point(165, 20);
-            this.sortDown.Name = "sortDown";
-            this.sortDown.Size = new System.Drawing.Size(125, 17);
-            this.sortDown.TabIndex = 1;
-            this.sortDown.TabStop = true;
-            this.sortDown.Text = "Сортировать от Я-А";
-            this.sortDown.UseVisualStyleBackColor = true;
+            this.dropSortBtn.Location = new System.Drawing.Point(165, 43);
+            this.dropSortBtn.Name = "dropSortBtn";
+            this.dropSortBtn.Size = new System.Drawing.Size(136, 23);
+            this.dropSortBtn.TabIndex = 11;
+            this.dropSortBtn.Text = "Сбросить";
+            this.dropSortBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.dropSortBtn.UseVisualStyleBackColor = true;
+            this.dropSortBtn.Click += new System.EventHandler(this.dropSortBtn_Click);
             // 
             // sortBtn
             // 
@@ -217,16 +222,27 @@
             this.sortBtn.UseVisualStyleBackColor = true;
             this.sortBtn.Click += new System.EventHandler(this.sortBtn_Click);
             // 
-            // dropSortBtn
+            // sortDown
             // 
-            this.dropSortBtn.Location = new System.Drawing.Point(165, 43);
-            this.dropSortBtn.Name = "dropSortBtn";
-            this.dropSortBtn.Size = new System.Drawing.Size(136, 23);
-            this.dropSortBtn.TabIndex = 11;
-            this.dropSortBtn.Text = "Сбросить";
-            this.dropSortBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.dropSortBtn.UseVisualStyleBackColor = true;
-            this.dropSortBtn.Click += new System.EventHandler(this.dropSortBtn_Click);
+            this.sortDown.AutoSize = true;
+            this.sortDown.Location = new System.Drawing.Point(165, 20);
+            this.sortDown.Name = "sortDown";
+            this.sortDown.Size = new System.Drawing.Size(125, 17);
+            this.sortDown.TabIndex = 1;
+            this.sortDown.TabStop = true;
+            this.sortDown.Text = "Сортировать от Я-А";
+            this.sortDown.UseVisualStyleBackColor = true;
+            // 
+            // sortUp
+            // 
+            this.sortUp.AutoSize = true;
+            this.sortUp.Location = new System.Drawing.Point(7, 20);
+            this.sortUp.Name = "sortUp";
+            this.sortUp.Size = new System.Drawing.Size(125, 17);
+            this.sortUp.TabIndex = 0;
+            this.sortUp.TabStop = true;
+            this.sortUp.Text = "Сортировать от А-Я";
+            this.sortUp.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -245,11 +261,120 @@
             this.dismissedLbl.TabIndex = 4;
             this.dismissedLbl.Text = "Уволенные сотрудники выделены красным цветом";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.sropStatBtn);
+            this.groupBox1.Controls.Add(this.statBtn);
+            this.groupBox1.Controls.Add(this.endPeriodLbl);
+            this.groupBox1.Controls.Add(this.startPeriodLbl);
+            this.groupBox1.Controls.Add(this.statusLblForStat);
+            this.groupBox1.Controls.Add(this.endDateTimePicker);
+            this.groupBox1.Controls.Add(this.startDateTimePicker);
+            this.groupBox1.Controls.Add(this.statusCmbBoxForStat);
+            this.groupBox1.Location = new System.Drawing.Point(608, 309);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(307, 160);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Статистика";
+            // 
+            // statusCmbBoxForStat
+            // 
+            this.statusCmbBoxForStat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.statusCmbBoxForStat.FormattingEnabled = true;
+            this.statusCmbBoxForStat.Location = new System.Drawing.Point(94, 19);
+            this.statusCmbBoxForStat.Name = "statusCmbBoxForStat";
+            this.statusCmbBoxForStat.Size = new System.Drawing.Size(200, 21);
+            this.statusCmbBoxForStat.TabIndex = 1;
+            // 
+            // startDateTimePicker
+            // 
+            this.startDateTimePicker.Location = new System.Drawing.Point(94, 52);
+            this.startDateTimePicker.Name = "startDateTimePicker";
+            this.startDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.startDateTimePicker.TabIndex = 2;
+            // 
+            // endDateTimePicker
+            // 
+            this.endDateTimePicker.Location = new System.Drawing.Point(94, 89);
+            this.endDateTimePicker.Name = "endDateTimePicker";
+            this.endDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.endDateTimePicker.TabIndex = 3;
+            // 
+            // statusLblForStat
+            // 
+            this.statusLblForStat.AutoSize = true;
+            this.statusLblForStat.Location = new System.Drawing.Point(23, 22);
+            this.statusLblForStat.Name = "statusLblForStat";
+            this.statusLblForStat.Size = new System.Drawing.Size(41, 13);
+            this.statusLblForStat.TabIndex = 10;
+            this.statusLblForStat.Text = "Статус";
+            // 
+            // startPeriodLbl
+            // 
+            this.startPeriodLbl.AutoSize = true;
+            this.startPeriodLbl.Location = new System.Drawing.Point(4, 54);
+            this.startPeriodLbl.Name = "startPeriodLbl";
+            this.startPeriodLbl.Size = new System.Drawing.Size(89, 13);
+            this.startPeriodLbl.TabIndex = 11;
+            this.startPeriodLbl.Text = "Начало периода";
+            // 
+            // endPeriodLbl
+            // 
+            this.endPeriodLbl.AutoSize = true;
+            this.endPeriodLbl.Location = new System.Drawing.Point(7, 92);
+            this.endPeriodLbl.Name = "endPeriodLbl";
+            this.endPeriodLbl.Size = new System.Drawing.Size(83, 13);
+            this.endPeriodLbl.TabIndex = 12;
+            this.endPeriodLbl.Text = "Конец периода";
+            // 
+            // statBtn
+            // 
+            this.statBtn.Location = new System.Drawing.Point(10, 121);
+            this.statBtn.Name = "statBtn";
+            this.statBtn.Size = new System.Drawing.Size(136, 23);
+            this.statBtn.TabIndex = 12;
+            this.statBtn.Text = "Показать статистику";
+            this.statBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.statBtn.UseVisualStyleBackColor = true;
+            this.statBtn.Click += new System.EventHandler(this.statBtn_Click);
+            // 
+            // sropStatBtn
+            // 
+            this.sropStatBtn.Location = new System.Drawing.Point(165, 121);
+            this.sropStatBtn.Name = "sropStatBtn";
+            this.sropStatBtn.Size = new System.Drawing.Size(136, 23);
+            this.sropStatBtn.TabIndex = 12;
+            this.sropStatBtn.Text = "Сбросить статистику";
+            this.sropStatBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.sropStatBtn.UseVisualStyleBackColor = true;
+            // 
+            // statOutputGroupBox
+            // 
+            this.statOutputGroupBox.Controls.Add(this.statisticsOutputLbl);
+            this.statOutputGroupBox.Location = new System.Drawing.Point(13, 389);
+            this.statOutputGroupBox.Name = "statOutputGroupBox";
+            this.statOutputGroupBox.Size = new System.Drawing.Size(589, 80);
+            this.statOutputGroupBox.TabIndex = 6;
+            this.statOutputGroupBox.TabStop = false;
+            this.statOutputGroupBox.Text = "Окно вывода статистики";
+            // 
+            // statisticsOutputLbl
+            // 
+            this.statisticsOutputLbl.AutoSize = true;
+            this.statisticsOutputLbl.Location = new System.Drawing.Point(6, 32);
+            this.statisticsOutputLbl.Name = "statisticsOutputLbl";
+            this.statisticsOutputLbl.Size = new System.Drawing.Size(93, 13);
+            this.statisticsOutputLbl.TabIndex = 0;
+            this.statisticsOutputLbl.Text = "statisticsOutputLbl";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 481);
+            this.Controls.Add(this.statOutputGroupBox);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dismissedLbl);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.sortGB);
@@ -262,6 +387,10 @@
             this.filterGB.PerformLayout();
             this.sortGB.ResumeLayout(false);
             this.sortGB.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.statOutputGroupBox.ResumeLayout(false);
+            this.statOutputGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -288,6 +417,17 @@
         private System.Windows.Forms.RadioButton sortUp;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label dismissedLbl;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DateTimePicker endDateTimePicker;
+        private System.Windows.Forms.DateTimePicker startDateTimePicker;
+        private System.Windows.Forms.ComboBox statusCmbBoxForStat;
+        private System.Windows.Forms.Button sropStatBtn;
+        private System.Windows.Forms.Button statBtn;
+        private System.Windows.Forms.Label endPeriodLbl;
+        private System.Windows.Forms.Label startPeriodLbl;
+        private System.Windows.Forms.Label statusLblForStat;
+        private System.Windows.Forms.GroupBox statOutputGroupBox;
+        private System.Windows.Forms.Label statisticsOutputLbl;
     }
 }
 

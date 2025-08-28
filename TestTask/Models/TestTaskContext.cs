@@ -40,6 +40,7 @@ namespace TestTask.Models
             { return null; }
         }
 
+        //Настройка таблиц
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StatusModel>(entity =>
@@ -103,7 +104,7 @@ namespace TestTask.Models
                 entity.Property(e => e.PostId)
                       .HasColumnName("id_post");
 
-                // Настройка отношений
+                // Настройка связей между таблицами
                 entity.HasOne(d => d.Status)
                       .WithMany(p => p.Persons)
                       .HasForeignKey(d => d.StatusId)
