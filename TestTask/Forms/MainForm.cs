@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Windows.Forms;
@@ -147,6 +148,30 @@ namespace TestTask
 
                 personDgv.DataSource = dt;
             }
+        }
+
+        //Проверяю по какому способу проводится сортировка
+        private void sortBtn_Click(object sender, System.EventArgs e)
+        {
+            //Сортировка по алфавиту
+            if (sortUp.Checked)
+            {
+                personDgv.Sort(personDgv.Columns[0], ListSortDirection.Ascending);
+            }
+            else 
+            //Сортировка в обратном порядке по алфавиту
+            if (sortDown.Checked)
+            {
+                personDgv.Sort(personDgv.Columns[0], ListSortDirection.Descending);
+            }
+        }
+
+        //Сбрасываю сортирвоку и привожу DataGridView в первоначальный вид
+        private void dropSortBtn_Click(object sender, System.EventArgs e)
+        {
+            sortDown.Checked = false;
+            sortUp.Checked = false;
+            UpdateDgvPerson();
         }
     }
 }

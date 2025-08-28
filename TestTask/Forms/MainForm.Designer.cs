@@ -40,8 +40,14 @@
             this.postCmbBox = new System.Windows.Forms.ComboBox();
             this.depCmbBox = new System.Windows.Forms.ComboBox();
             this.statusCmbBox = new System.Windows.Forms.ComboBox();
+            this.sortGB = new System.Windows.Forms.GroupBox();
+            this.sortUp = new System.Windows.Forms.RadioButton();
+            this.sortDown = new System.Windows.Forms.RadioButton();
+            this.sortBtn = new System.Windows.Forms.Button();
+            this.dropSortBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.personDgv)).BeginInit();
             this.filterGB.SuspendLayout();
+            this.sortGB.SuspendLayout();
             this.SuspendLayout();
             // 
             // personDgv
@@ -163,11 +169,69 @@
             this.statusCmbBox.Size = new System.Drawing.Size(200, 21);
             this.statusCmbBox.TabIndex = 0;
             // 
+            // sortGB
+            // 
+            this.sortGB.Controls.Add(this.dropSortBtn);
+            this.sortGB.Controls.Add(this.sortBtn);
+            this.sortGB.Controls.Add(this.sortDown);
+            this.sortGB.Controls.Add(this.sortUp);
+            this.sortGB.Location = new System.Drawing.Point(608, 207);
+            this.sortGB.Name = "sortGB";
+            this.sortGB.Size = new System.Drawing.Size(307, 82);
+            this.sortGB.TabIndex = 2;
+            this.sortGB.TabStop = false;
+            this.sortGB.Text = "Сортировка";
+            // 
+            // sortUp
+            // 
+            this.sortUp.AutoSize = true;
+            this.sortUp.Location = new System.Drawing.Point(7, 20);
+            this.sortUp.Name = "sortUp";
+            this.sortUp.Size = new System.Drawing.Size(125, 17);
+            this.sortUp.TabIndex = 0;
+            this.sortUp.TabStop = true;
+            this.sortUp.Text = "Сортировать от А-Я";
+            this.sortUp.UseVisualStyleBackColor = true;
+            // 
+            // sortDown
+            // 
+            this.sortDown.AutoSize = true;
+            this.sortDown.Location = new System.Drawing.Point(165, 20);
+            this.sortDown.Name = "sortDown";
+            this.sortDown.Size = new System.Drawing.Size(125, 17);
+            this.sortDown.TabIndex = 1;
+            this.sortDown.TabStop = true;
+            this.sortDown.Text = "Сортировать от Я-А";
+            this.sortDown.UseVisualStyleBackColor = true;
+            // 
+            // sortBtn
+            // 
+            this.sortBtn.Location = new System.Drawing.Point(6, 43);
+            this.sortBtn.Name = "sortBtn";
+            this.sortBtn.Size = new System.Drawing.Size(136, 23);
+            this.sortBtn.TabIndex = 10;
+            this.sortBtn.Text = "Сортировать";
+            this.sortBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.sortBtn.UseVisualStyleBackColor = true;
+            this.sortBtn.Click += new System.EventHandler(this.sortBtn_Click);
+            // 
+            // dropSortBtn
+            // 
+            this.dropSortBtn.Location = new System.Drawing.Point(165, 43);
+            this.dropSortBtn.Name = "dropSortBtn";
+            this.dropSortBtn.Size = new System.Drawing.Size(136, 23);
+            this.dropSortBtn.TabIndex = 11;
+            this.dropSortBtn.Text = "Сбросить";
+            this.dropSortBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.dropSortBtn.UseVisualStyleBackColor = true;
+            this.dropSortBtn.Click += new System.EventHandler(this.dropSortBtn_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 481);
+            this.Controls.Add(this.sortGB);
             this.Controls.Add(this.filterGB);
             this.Controls.Add(this.personDgv);
             this.Name = "MainForm";
@@ -175,6 +239,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.personDgv)).EndInit();
             this.filterGB.ResumeLayout(false);
             this.filterGB.PerformLayout();
+            this.sortGB.ResumeLayout(false);
+            this.sortGB.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -193,6 +259,11 @@
         private System.Windows.Forms.ComboBox statusCmbBox;
         private System.Windows.Forms.Label surnameTLbl;
         private System.Windows.Forms.Label postLbl;
+        private System.Windows.Forms.GroupBox sortGB;
+        private System.Windows.Forms.Button dropSortBtn;
+        private System.Windows.Forms.Button sortBtn;
+        private System.Windows.Forms.RadioButton sortDown;
+        private System.Windows.Forms.RadioButton sortUp;
     }
 }
 
