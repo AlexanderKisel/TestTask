@@ -48,14 +48,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.dismissedLbl = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.statusCmbBoxForStat = new System.Windows.Forms.ComboBox();
-            this.startDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.statusLblForStat = new System.Windows.Forms.Label();
-            this.startPeriodLbl = new System.Windows.Forms.Label();
-            this.endPeriodLbl = new System.Windows.Forms.Label();
+            this.dropStatBtn = new System.Windows.Forms.Button();
             this.statBtn = new System.Windows.Forms.Button();
-            this.sropStatBtn = new System.Windows.Forms.Button();
+            this.endPeriodLbl = new System.Windows.Forms.Label();
+            this.startPeriodLbl = new System.Windows.Forms.Label();
+            this.statusLblForStat = new System.Windows.Forms.Label();
+            this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.startDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.statusCmbBoxForStat = new System.Windows.Forms.ComboBox();
             this.statOutputGroupBox = new System.Windows.Forms.GroupBox();
             this.statisticsOutputLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.personDgv)).BeginInit();
@@ -263,7 +263,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.sropStatBtn);
+            this.groupBox1.Controls.Add(this.dropStatBtn);
             this.groupBox1.Controls.Add(this.statBtn);
             this.groupBox1.Controls.Add(this.endPeriodLbl);
             this.groupBox1.Controls.Add(this.startPeriodLbl);
@@ -278,55 +278,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Статистика";
             // 
-            // statusCmbBoxForStat
+            // dropStatBtn
             // 
-            this.statusCmbBoxForStat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.statusCmbBoxForStat.FormattingEnabled = true;
-            this.statusCmbBoxForStat.Location = new System.Drawing.Point(94, 19);
-            this.statusCmbBoxForStat.Name = "statusCmbBoxForStat";
-            this.statusCmbBoxForStat.Size = new System.Drawing.Size(200, 21);
-            this.statusCmbBoxForStat.TabIndex = 1;
-            // 
-            // startDateTimePicker
-            // 
-            this.startDateTimePicker.Location = new System.Drawing.Point(94, 52);
-            this.startDateTimePicker.Name = "startDateTimePicker";
-            this.startDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.startDateTimePicker.TabIndex = 2;
-            // 
-            // endDateTimePicker
-            // 
-            this.endDateTimePicker.Location = new System.Drawing.Point(94, 89);
-            this.endDateTimePicker.Name = "endDateTimePicker";
-            this.endDateTimePicker.Size = new System.Drawing.Size(200, 20);
-            this.endDateTimePicker.TabIndex = 3;
-            // 
-            // statusLblForStat
-            // 
-            this.statusLblForStat.AutoSize = true;
-            this.statusLblForStat.Location = new System.Drawing.Point(23, 22);
-            this.statusLblForStat.Name = "statusLblForStat";
-            this.statusLblForStat.Size = new System.Drawing.Size(41, 13);
-            this.statusLblForStat.TabIndex = 10;
-            this.statusLblForStat.Text = "Статус";
-            // 
-            // startPeriodLbl
-            // 
-            this.startPeriodLbl.AutoSize = true;
-            this.startPeriodLbl.Location = new System.Drawing.Point(4, 54);
-            this.startPeriodLbl.Name = "startPeriodLbl";
-            this.startPeriodLbl.Size = new System.Drawing.Size(89, 13);
-            this.startPeriodLbl.TabIndex = 11;
-            this.startPeriodLbl.Text = "Начало периода";
-            // 
-            // endPeriodLbl
-            // 
-            this.endPeriodLbl.AutoSize = true;
-            this.endPeriodLbl.Location = new System.Drawing.Point(7, 92);
-            this.endPeriodLbl.Name = "endPeriodLbl";
-            this.endPeriodLbl.Size = new System.Drawing.Size(83, 13);
-            this.endPeriodLbl.TabIndex = 12;
-            this.endPeriodLbl.Text = "Конец периода";
+            this.dropStatBtn.Location = new System.Drawing.Point(165, 121);
+            this.dropStatBtn.Name = "dropStatBtn";
+            this.dropStatBtn.Size = new System.Drawing.Size(136, 23);
+            this.dropStatBtn.TabIndex = 12;
+            this.dropStatBtn.Text = "Сбросить статистику";
+            this.dropStatBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.dropStatBtn.UseVisualStyleBackColor = true;
+            this.dropStatBtn.Click += new System.EventHandler(this.dropStatBtn_Click);
             // 
             // statBtn
             // 
@@ -339,15 +300,55 @@
             this.statBtn.UseVisualStyleBackColor = true;
             this.statBtn.Click += new System.EventHandler(this.statBtn_Click);
             // 
-            // sropStatBtn
+            // endPeriodLbl
             // 
-            this.sropStatBtn.Location = new System.Drawing.Point(165, 121);
-            this.sropStatBtn.Name = "sropStatBtn";
-            this.sropStatBtn.Size = new System.Drawing.Size(136, 23);
-            this.sropStatBtn.TabIndex = 12;
-            this.sropStatBtn.Text = "Сбросить статистику";
-            this.sropStatBtn.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.sropStatBtn.UseVisualStyleBackColor = true;
+            this.endPeriodLbl.AutoSize = true;
+            this.endPeriodLbl.Location = new System.Drawing.Point(7, 92);
+            this.endPeriodLbl.Name = "endPeriodLbl";
+            this.endPeriodLbl.Size = new System.Drawing.Size(83, 13);
+            this.endPeriodLbl.TabIndex = 12;
+            this.endPeriodLbl.Text = "Конец периода";
+            // 
+            // startPeriodLbl
+            // 
+            this.startPeriodLbl.AutoSize = true;
+            this.startPeriodLbl.Location = new System.Drawing.Point(4, 54);
+            this.startPeriodLbl.Name = "startPeriodLbl";
+            this.startPeriodLbl.Size = new System.Drawing.Size(89, 13);
+            this.startPeriodLbl.TabIndex = 11;
+            this.startPeriodLbl.Text = "Начало периода";
+            // 
+            // statusLblForStat
+            // 
+            this.statusLblForStat.AutoSize = true;
+            this.statusLblForStat.Location = new System.Drawing.Point(23, 22);
+            this.statusLblForStat.Name = "statusLblForStat";
+            this.statusLblForStat.Size = new System.Drawing.Size(41, 13);
+            this.statusLblForStat.TabIndex = 10;
+            this.statusLblForStat.Text = "Статус";
+            // 
+            // endDateTimePicker
+            // 
+            this.endDateTimePicker.Location = new System.Drawing.Point(94, 89);
+            this.endDateTimePicker.Name = "endDateTimePicker";
+            this.endDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.endDateTimePicker.TabIndex = 3;
+            // 
+            // startDateTimePicker
+            // 
+            this.startDateTimePicker.Location = new System.Drawing.Point(94, 52);
+            this.startDateTimePicker.Name = "startDateTimePicker";
+            this.startDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.startDateTimePicker.TabIndex = 2;
+            // 
+            // statusCmbBoxForStat
+            // 
+            this.statusCmbBoxForStat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.statusCmbBoxForStat.FormattingEnabled = true;
+            this.statusCmbBoxForStat.Location = new System.Drawing.Point(94, 19);
+            this.statusCmbBoxForStat.Name = "statusCmbBoxForStat";
+            this.statusCmbBoxForStat.Size = new System.Drawing.Size(200, 21);
+            this.statusCmbBoxForStat.TabIndex = 1;
             // 
             // statOutputGroupBox
             // 
@@ -364,9 +365,8 @@
             this.statisticsOutputLbl.AutoSize = true;
             this.statisticsOutputLbl.Location = new System.Drawing.Point(6, 32);
             this.statisticsOutputLbl.Name = "statisticsOutputLbl";
-            this.statisticsOutputLbl.Size = new System.Drawing.Size(93, 13);
+            this.statisticsOutputLbl.Size = new System.Drawing.Size(0, 13);
             this.statisticsOutputLbl.TabIndex = 0;
-            this.statisticsOutputLbl.Text = "statisticsOutputLbl";
             // 
             // MainForm
             // 
@@ -421,7 +421,7 @@
         private System.Windows.Forms.DateTimePicker endDateTimePicker;
         private System.Windows.Forms.DateTimePicker startDateTimePicker;
         private System.Windows.Forms.ComboBox statusCmbBoxForStat;
-        private System.Windows.Forms.Button sropStatBtn;
+        private System.Windows.Forms.Button dropStatBtn;
         private System.Windows.Forms.Button statBtn;
         private System.Windows.Forms.Label endPeriodLbl;
         private System.Windows.Forms.Label startPeriodLbl;

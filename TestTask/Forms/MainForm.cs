@@ -251,7 +251,7 @@ namespace TestTask
                 statisticsOutputLbl.Text = $"За период: {startPeriod:dd.MM.yyyy} - {endPeriod:dd.MM.yyyy} было уволено {counterDismissed} человек(-а).";
 
             }
-            else if (status.ToLower() != "уволен")
+            else if (status.ToLower() == "работает")
             {
                 //Вывод статистики в случае, если выбран статус "Работает", но в этот период все подходящие работники были уволены
                 if (counterAll-counterDismissed < 0)
@@ -267,6 +267,17 @@ namespace TestTask
             {
                 MessageBox.Show("Вы не выбрали статус", "Ошибка ввода данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+
+        //Изменение в 12:09
+        //Доделанная кнопка сброса вывода статистики
+        private void dropStatBtn_Click(object sender, EventArgs e)
+        {
+            statisticsOutputLbl.Text = " ";
+            startDateTimePicker.Value = DateTime.Now;
+            endDateTimePicker.Value = DateTime.Now;
+            statusCmbBoxForStat.SelectedIndex = -1;
         }
     }
 }
