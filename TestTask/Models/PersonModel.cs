@@ -2,6 +2,7 @@
 
 namespace TestTask.Models
 {
+    //Модель работников
     public partial class PersonModel
     {
         public int Id { get; set; }
