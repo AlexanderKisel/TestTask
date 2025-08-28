@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Staff.Models
+namespace TestTask.Models
 {
     //Модель должности
     public partial class PostModel

@@ -2,7 +2,7 @@
 using System;
 using System.Configuration;
 
-namespace Staff.Models
+namespace TestTask.Models
 {
     public partial class TestTaskContext : DbContext
     {
