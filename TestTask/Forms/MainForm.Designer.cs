@@ -45,6 +45,8 @@
             this.sortDown = new System.Windows.Forms.RadioButton();
             this.sortBtn = new System.Windows.Forms.Button();
             this.dropSortBtn = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dismissedLbl = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.personDgv)).BeginInit();
             this.filterGB.SuspendLayout();
             this.sortGB.SuspendLayout();
@@ -226,11 +228,30 @@
             this.dropSortBtn.UseVisualStyleBackColor = true;
             this.dropSortBtn.Click += new System.EventHandler(this.dropSortBtn_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.IndianRed;
+            this.panel1.Location = new System.Drawing.Point(13, 352);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(30, 30);
+            this.panel1.TabIndex = 3;
+            // 
+            // dismissedLbl
+            // 
+            this.dismissedLbl.AutoSize = true;
+            this.dismissedLbl.Location = new System.Drawing.Point(49, 361);
+            this.dismissedLbl.Name = "dismissedLbl";
+            this.dismissedLbl.Size = new System.Drawing.Size(270, 13);
+            this.dismissedLbl.TabIndex = 4;
+            this.dismissedLbl.Text = "Уволенные сотрудники выделены красным цветом";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 481);
+            this.Controls.Add(this.dismissedLbl);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.sortGB);
             this.Controls.Add(this.filterGB);
             this.Controls.Add(this.personDgv);
@@ -242,6 +263,7 @@
             this.sortGB.ResumeLayout(false);
             this.sortGB.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -264,6 +286,8 @@
         private System.Windows.Forms.Button sortBtn;
         private System.Windows.Forms.RadioButton sortDown;
         private System.Windows.Forms.RadioButton sortUp;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label dismissedLbl;
     }
 }
 

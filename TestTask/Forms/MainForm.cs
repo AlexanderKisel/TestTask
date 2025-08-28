@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using TestTask.Models;
@@ -14,6 +15,9 @@ namespace TestTask
         public MainForm()
         {
             InitializeComponent();
+            
+            //Событие для выделения уволенного сотрудника
+            personDgv.CellFormatting += PersonDgv_CellFormatting;
 
             personDgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             personDgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
@@ -29,6 +33,23 @@ namespace TestTask
             LoadFilterData();
         }
 
+        private void PersonDgv_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            //Для выделения ячеки в столбце ФИО ставлю условие, на этот столбец
+            if (e.ColumnIndex == 0)
+            {
+                //Получаю значение статуса
+                var statusValue = personDgv.Rows[e.RowIndex].Cells["Статус"].Value?.ToString();
+
+                //Если статус сотрудника "Уволен" выделяю ячейку с ФИО красным цветом
+                //При этом полученное значение ячейки перевожу в нижний регистр, в случае если значение в таблице содержится в другом регистре, как у меня
+                if (statusValue.ToLower().Contains("уволен"))
+                {
+                    e.CellStyle.BackColor = Color.IndianRed;
+                }
+            }
+        }
+
         //Кнопка для применения фильтрации
         private void applyTxtBox_Click(object sender, System.EventArgs e)
         {
@@ -37,37 +58,37 @@ namespace TestTask
 
             string filterExpression = "";
 
-            // Фильтр по фамилии
+            //Фильтр по фамилии
             if (!string.IsNullOrEmpty(surnameTxtBox.Text))
             {
                 filterExpression += $"(ФИО LIKE '%{surnameTxtBox.Text}%') AND ";
             }
 
-            // Фильтр по статусу
+            //Фильтр по статусу
             if (statusCmbBox.SelectedItem != null && !string.IsNullOrEmpty(statusCmbBox.SelectedItem.ToString()))
             {
                 filterExpression += $"(Статус = '{statusCmbBox.SelectedItem}') AND ";
             }
 
-            // Фильтр по отделу
+            //Фильтр по отделу
             if (depCmbBox.SelectedItem != null && !string.IsNullOrEmpty(depCmbBox.SelectedItem.ToString()))
             {
                 filterExpression += $"(Отдел = '{depCmbBox.SelectedItem}') AND ";
             }
 
-            // Фильтр по должности
+            //Фильтр по должности
             if (postCmbBox.SelectedItem != null && !string.IsNullOrEmpty(postCmbBox.SelectedItem.ToString()))
             {
                 filterExpression += $"(Должность = '{postCmbBox.SelectedItem}') AND ";
             }
 
-            // Убираю последний "AND "
+            //Убираю последний "AND "
             if (filterExpression.EndsWith("AND "))
             {
                 filterExpression = filterExpression.Remove(filterExpression.Length - 4);
             }
 
-            // Применяю фильтр
+            //Применяю фильтр
             dt.DefaultView.RowFilter = filterExpression;
             personDgv.DataSource = dt.DefaultView;
         }
@@ -75,7 +96,7 @@ namespace TestTask
         //Кнопка для сброса фильтрации
         private void dropTxtBox_Click(object sender, System.EventArgs e)
         {
-            // Сбрасываю все фильтры в ComboBox
+            //Сбрасываю все фильтры в ComboBox
             surnameTxtBox.Text = "";
             statusCmbBox.SelectedIndex = -1;
             depCmbBox.SelectedIndex = -1;
